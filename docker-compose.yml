@@ -1,0 +1,26 @@
+version: '3'
+services:
+  data-app:
+    platform: linux/amd64
+    build:
+      context: ./web_app
+    image: varunm58/data_analysis_app:v1
+    ports:
+      - "127.0.0.1:5000:80"
+    volumes:
+      - data-volume:/app/data
+    depends_on:
+      - data-db
+
+  data-db:
+    platform: linux/amd64
+    build:
+      context: ./database
+    image: varunm58/data_analysis_app:db_v1
+    volumes:
+      - data-volume:/app/data
+
+volumes:
+  data-volume:
+
+
